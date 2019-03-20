@@ -1,0 +1,48 @@
+# depslib dependency file v1.0
+1552989332 source:d:\lecture\third year\cs420 - artificial intelligence\project 01\pacman\main.cpp
+	<bits/stdc++.h>
+	"pacmanagent.h"
+	"monsteragent.h"
+
+1552872474 d:\lecture\third year\cs420 - artificial intelligence\project 01\pacman\constants.h
+	<bits/stdc++.h>
+
+1552988963 d:\lecture\third year\cs420 - artificial intelligence\project 01\pacman\pacmanagent.h
+	<bits/stdc++.h>
+	"constants.h"
+
+1552959656 source:d:\lecture\third year\cs420 - artificial intelligence\project 01\pacman\pacmanagent.cpp
+	<bits/stdc++.h>
+	"pacmanagent.h"
+	"constants.h"
+	"agent.h"
+
+1552872506 source:d:\lecture\third year\cs420 - artificial intelligence\project 01\pacman\constants.cpp
+	<bits/stdc++.h>
+	"constants.h"
+
+1552960504 source:d:\lecture\third year\cs420 - artificial intelligence\project 01\pacman\astar.cpp
+	"Astar.h"
+
+1552960558 d:\lecture\third year\cs420 - artificial intelligence\project 01\pacman\astar.h
+	<bits/stdc++.h>
+	"constants.h"
+	"pacmanagent.h"
+
+1552961325 source:d:\lecture\third year\cs420 - artificial intelligence\project 01\pacman\monsteragent.cpp
+	"monsteragent.h"
+
+1552961193 d:\lecture\third year\cs420 - artificial intelligence\project 01\pacman\monsteragent.h
+	<bits/stdc++.h>
+	"constants.h"
+	"Astar.h"
+	"agent.h"
+
+1552960534 source:d:\lecture\third year\cs420 - artificial intelligence\project 01\pacman\agent.cpp
+	"agent.h"
+
+1552960673 d:\lecture\third year\cs420 - artificial intelligence\project 01\pacman\agent.h
+	<bits/stdc++.h>
+	"constants.h"
+	"pacmanagent.h"
+
