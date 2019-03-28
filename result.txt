@@ -1,0 +1,2 @@
+Path length: 16
+Game point: -3

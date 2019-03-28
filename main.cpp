@@ -32,6 +32,9 @@ bool input(){
             matrix[i].push_back(MAP_CHARS[inp]);
         }
     }
+    int x, y;
+    cin>>x>>y;
+    inputMatrix[x][y]=PACMAN_INT;
     fclose(stdin);
     return true;
 }
@@ -49,9 +52,12 @@ bool output(){
 }
 
 void outputMoves(vector<int> m){
+
+    freopen("moveList.txt", "w", stdout);
     for(int i=0; i<m.size(); i++){
-        cout<<MOVES[m[i]].first<<" "<<MOVES[m[i]].second<<endl;
+        cout<<m[i]<<endl;
     }
+    fclose(stdout);
 }
 
 void outputToFile(vector<int> m){
@@ -82,16 +88,58 @@ void outputToFile(vector<int> m){
 
 bool run(){
     PacmanAgent pacman;
+    pacman.level3_a=0.01;
+    int point;
+    int cnt=0;
+    int t;
     vector<int> moves;
     switch(level){
     case 1:
         moves = pacman.level1_A_Star(n,m,inputMatrix);
+        if(moves.size()>=10){
+            moves.clear();
+        }
+        if(moves.size()==0){
+            point=0;
+        }
+        else{
+            point = 10 - moves.size();
+        }
         outputMoves(moves);
+        freopen("result.txt","w",stdout);
+        cout<<"Path length: "<<moves.size()<<endl;
+        cout<<"Game point: "<<point<<endl;
+        fclose(stdout);
         break;
     case 2:
         moves = pacman.level1_BFS(n,m,inputMatrix);
+        if(moves.size()>=10){
+            moves.clear();
+        }
+        if(moves.size()==0){
+            point=0;
+        }
+        else{
+            point = 10 - moves.size();
+        }
+        outputMoves(moves);
+        freopen("result.txt","w",stdout);
+        cout<<"Path length: "<<moves.size()<<endl;
+        cout<<"Game point: "<<point<<endl;
+        fclose(stdout);
         break;
     case 3:
+        Map::init(n,m,inputMatrix);
+        //cout<<Map::pacmanPosition.first<<Map::pacmanPosition.second<<endl;
+        pacman.playThisGame(n, m, inputMatrix, pacman.level3_a, true);
+        freopen("moveList.txt","r",stdin);
+        while(cin>>t){
+            cnt++;
+        }
+        freopen("result.txt","w",stdout);
+        cout<<"Path length: "<<cnt<<endl;
+        cout<<"Game point: "<<Map::point<<endl;
+        fclose(stdout);
         break;
     case 4:
         break;
@@ -105,6 +153,10 @@ bool run(){
 int main()
 {
     srand(time(NULL));
+
+    input();
+    run();
+
 //    input();
 //    output();
 //    Map::init(n, m, inputMatrix);
@@ -112,10 +164,10 @@ int main()
 //    int mov = myMonster.level4_1(n,m,inputMatrix);
 //    myMonster.move(mov, inputMatrix);
 //    output();
-    PacmanAgent myPacman;
-    myPacman.train(30,40,inputMatrix);
-    freopen("trainedParameters.txt","a",stdout);
-    cout<<myPacman.level3_a<<endl;
-    fclose(stdout);
+//    PacmanAgent myPacman;
+//    myPacman.train(30,40,inputMatrix);
+//    freopen("trainedParameters.txt","a",stdout);
+//    cout<<myPacman.level3_a<<endl;
+//    fclose(stdout);
     return 0;
 }

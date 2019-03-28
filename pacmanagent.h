@@ -100,7 +100,7 @@ public:
 
     double calculateProbOfMov(double a, int t);
     bool random(double a);
-    pair<double, pair<int, int>> playThisGame(int nrow, int ncolumn, vector<int> inputMatrix[], double a);
+    pair<double, pair<int, int>> playThisGame(int nrow, int ncolumn, vector<int> inputMatrix[], double a, bool prnt);
 
     double train(int nrow, int ncolumn, vector<int> inputMatrix[]);
     vector<int> level3(int nrow, int ncolumn, vector<int> inputMatrix[]);

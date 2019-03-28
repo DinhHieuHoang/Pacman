@@ -116,7 +116,7 @@ vector<int> PacmanAgent::level1_BFS(int nrow, int ncolumn, vector<int>inputMatri
         bfsQueue.pop();
 
         isVisited[currentPosition.first][currentPosition.second] = true;
-        for(size_t i=0; i<sizeof(MOVES); ++i){
+        for(size_t i=0; i<4; ++i){
             if(currentPosition.first + MOVES[i].first<0 || currentPosition.first + MOVES[i].first>=nrow){
                 continue;
             }
@@ -220,11 +220,11 @@ vector<int> PacmanAgent::level1_A_Star(int nrow, int ncolumn, vector<int>inputMa
             return tracePath;
         }
         priorityQueue.pop();
-        for(int i=0; i<sizeof(MOVES); i++){
+        for(int i=0; i<4; i++){
             int x_next = tmp.coord.first + MOVES[i].first;
             int y_next = tmp.coord.second + MOVES[i].second;
 
-            if(x_next<0 || y_next<0 || x_next>nrow || y_next>ncolumn){
+            if(x_next<0 || y_next<0 || x_next>=nrow || y_next>=ncolumn){
                 continue;
             }
 
@@ -278,7 +278,8 @@ bool PacmanAgent::random(double a){
     return false;
 }
 
-pair<double, pair<int,int>> PacmanAgent::playThisGame(int nrow, int ncolumn, vector<int> inputMatrix[], double a){
+pair<double, pair<int,int>> PacmanAgent::playThisGame(int nrow, int ncolumn, vector<int> inputMatrix[], double a, bool prnt){
+    freopen("moveList.txt", "a", stdout);
     int ans=0;
     int mrk = 0;
     int t=0;
@@ -289,6 +290,7 @@ pair<double, pair<int,int>> PacmanAgent::playThisGame(int nrow, int ncolumn, vec
             mrk = t;
         }
         ++t;
+        //cout<<t<<endl;
         chosenMove = -1;
         //if(!random(calculateProbOfMov(a, t))){
         //    return make_pair(Map::point, make_pair(ans, mrk));
@@ -304,9 +306,11 @@ pair<double, pair<int,int>> PacmanAgent::playThisGame(int nrow, int ncolumn, vec
             }
             //cout<<x_next<<" "<<y_next<<" "<<i<<endl;
             if(inputMatrix[x_next][y_next] == FOOD_INT){
+              //      cout<<"?"<<endl;
                 foodMove.push_back(i);
             }
             else if(inputMatrix[x_next][y_next] == PATH_INT){
+             //   cout<<"?"<<endl;
                 notFoodMove.push_back(i);
             }
         }
@@ -316,17 +320,22 @@ pair<double, pair<int,int>> PacmanAgent::playThisGame(int nrow, int ncolumn, vec
         }
         else if(!notFoodMove.empty()){
             if(!random(calculateProbOfMov(a, t))){
+                fclose(stdout);
                 return make_pair(Map::point, make_pair(ans, mrk));
             }
             chosenMove = rand() % notFoodMove.size();
             chosenMove = notFoodMove[chosenMove];
         }
         else{
+            fclose(stdout);
             return make_pair(Map::point, make_pair(ans, mrk));
         }
         move(chosenMove, inputMatrix);
+        if(prnt){
+            cout<<chosenMove<<endl;
+        }
     }
-
+    fclose(stdout);
     return make_pair(Map::point, make_pair(ans, mrk));
 }
 
@@ -349,10 +358,10 @@ double PacmanAgent::train(int nrow, int ncolumn, vector<int> inputMatrix[]){
 
         for(int cntGame = 0; cntGame<TERN_SEARCH_A_NUM; ++cntGame){
             int chosenFile = Map::chooseRandomMap(nrow, ncolumn, inputMatrix, trainingfile);
-            point = playThisGame(nrow, ncolumn, inputMatrix, oneThird);
+            point = playThisGame(nrow, ncolumn, inputMatrix, oneThird, false);
             oneThirdGamePoint += point.first;
             Map::loadMap(chosenFile, nrow, ncolumn, inputMatrix, trainingfile);
-            point = playThisGame(nrow, ncolumn, inputMatrix, twoThird);
+            point = playThisGame(nrow, ncolumn, inputMatrix, twoThird, false);
             twoThirdGamePoint += point.first;
         }
 
@@ -369,7 +378,7 @@ double PacmanAgent::train(int nrow, int ncolumn, vector<int> inputMatrix[]){
     freopen("output.txt","w",stdout);
     for(int cntGame = 0; cntGame<TERN_SEARCH_A_NUM; ++cntGame){
         int chosenFile = Map::chooseRandomMap(nrow, ncolumn, inputMatrix, validatingfile);
-        point = playThisGame(nrow, ncolumn, inputMatrix, level3_a);
+        point = playThisGame(nrow, ncolumn, inputMatrix, level3_a, false);
         cout<<point.first<<" "<<point.second.first<<" "<<point.second.second<<endl;
     }
     fclose(stdout);

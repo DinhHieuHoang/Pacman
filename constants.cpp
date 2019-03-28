@@ -13,11 +13,11 @@ const int numOfTrainingFile = 150;
 
 const int MATRIX_MAX_LENGTH = 1000;
 
-const int WALL_INT = 0;
-const int FOOD_INT = 1;
-const int PATH_INT = 2;
-const int PACMAN_INT = 3;
-const int MONSTER_INT = 4;
+const int WALL_INT = 1;
+const int FOOD_INT = 2;
+const int PATH_INT = 0;
+const int PACMAN_INT = 4;
+const int MONSTER_INT = 3;
 
 const int MOVE_COST = 1;
 const int FOOD_SCORE = 10;

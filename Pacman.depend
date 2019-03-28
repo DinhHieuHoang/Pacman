@@ -54,3 +54,58 @@
 	"constants.h"
 	"pacmanagent.h"
 
+1553780634 source:d:\lecture\third year\cs420 - artificial intelligence\project 01\oldpacman\pacman\agent.cpp
+	"agent.h"
+
+1553780634 d:\lecture\third year\cs420 - artificial intelligence\project 01\oldpacman\pacman\agent.h
+	<bits/stdc++.h>
+	"constants.h"
+	"pacmanagent.h"
+
+1553780634 d:\lecture\third year\cs420 - artificial intelligence\project 01\oldpacman\pacman\constants.h
+	<bits/stdc++.h>
+
+1553781989 d:\lecture\third year\cs420 - artificial intelligence\project 01\oldpacman\pacman\pacmanagent.h
+	<bits/stdc++.h>
+	"constants.h"
+
+1553780634 source:d:\lecture\third year\cs420 - artificial intelligence\project 01\oldpacman\pacman\astar.cpp
+	"Astar.h"
+
+1553780634 d:\lecture\third year\cs420 - artificial intelligence\project 01\oldpacman\pacman\astar.h
+	<bits/stdc++.h>
+	"constants.h"
+	"pacmanagent.h"
+
+1553780634 source:d:\lecture\third year\cs420 - artificial intelligence\project 01\oldpacman\pacman\bfs.cpp
+	"BFS.h"
+
+1553780634 d:\lecture\third year\cs420 - artificial intelligence\project 01\oldpacman\pacman\bfs.h
+	<bits/stdc++.h>
+	"constants.h"
+	"pacmanagent.h"
+
+1553784762 source:d:\lecture\third year\cs420 - artificial intelligence\project 01\oldpacman\pacman\constants.cpp
+	<bits/stdc++.h>
+	"constants.h"
+
+1553787762 source:d:\lecture\third year\cs420 - artificial intelligence\project 01\oldpacman\pacman\main.cpp
+	<bits/stdc++.h>
+	"pacmanagent.h"
+	"monsteragent.h"
+
+1553780634 d:\lecture\third year\cs420 - artificial intelligence\project 01\oldpacman\pacman\monsteragent.h
+	<bits/stdc++.h>
+	"constants.h"
+	"Astar.h"
+	"agent.h"
+
+1553780634 source:d:\lecture\third year\cs420 - artificial intelligence\project 01\oldpacman\pacman\monsteragent.cpp
+	"monsteragent.h"
+
+1553784124 source:d:\lecture\third year\cs420 - artificial intelligence\project 01\oldpacman\pacman\pacmanagent.cpp
+	<bits/stdc++.h>
+	"pacmanagent.h"
+	"constants.h"
+	"agent.h"
+

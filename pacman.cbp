@@ -44,6 +44,8 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="monsteragent.cpp" />
 		<Unit filename="monsteragent.h" />
+		<Unit filename="moveList.txt" />
+		<Unit filename="moves.txt" />
 		<Unit filename="output.txt" />
 		<Unit filename="pacmanagent.cpp" />
 		<Unit filename="pacmanagent.h" />
