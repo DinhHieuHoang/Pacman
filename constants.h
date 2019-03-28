@@ -59,5 +59,8 @@ extern const int TERN_SEARCH_A_NUM;
 extern const int MIN_POINT;
 
 extern const string trainingfile;
+extern const string validatingfile;
+extern const string txtExtension;
+extern const int numOfTrainingFile;
 
 #endif

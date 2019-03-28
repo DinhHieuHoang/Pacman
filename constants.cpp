@@ -4,6 +4,10 @@ using namespace std;
 
 const string inputfile = "input.txt";
 const string outputfile = "output.txt";
+const string trainingfile = "./trainingFiles/training";
+const string validatingfile = "./validatingFiles/validating";
+const string txtExtension = ".txt";
+const int numOfTrainingFile = 150;
 
 /// Map Configuration
 
@@ -42,7 +46,7 @@ pair<int, int> MOVES[]={
 /// Level 3 Constants
 
 const double LOWER_BOUND = 0.0;
-const double UPPER_BOUND = 1000.0;
-const int TERN_SEARCH_LOOP_NUM = 7;
-const int TERN_SEARCH_A_NUM = 7;
-const int MIN_POINT = -15;
+const double UPPER_BOUND = 50.0;
+const int TERN_SEARCH_LOOP_NUM = 25;
+const int TERN_SEARCH_A_NUM = 5000;
+const int MIN_POINT = -5;

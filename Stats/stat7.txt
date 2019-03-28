@@ -1,0 +1,47 @@
+double probWall = 0.15;
+double probFood = 0.05;
+double probMonster = 0.1;
+
+40.1809
+45.275
+
+training set 1
+
+MAX POINTS:
+0: 4291
+8: 12
+9: 590
+18: 107
+MARKS:
+0: 4291
+1: 590
+2: 119
+POINTS:
+-3: 1
+-2: 2
+-1: 86
+0: 4202
+8: 21
+9: 581
+18: 107
+EXPECTED POINT:
+1.446
+
+MAX POINTS:
+0: 4268
+8: 9
+9: 586
+18: 137
+MARKS:
+0: 4268
+1: 586
+2: 146
+POINTS:
+-1: 74
+0: 4194
+8: 15
+9: 580
+17: 2
+18: 135
+EXPECTED POINT:
+1.546

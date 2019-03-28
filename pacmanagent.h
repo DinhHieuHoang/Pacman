@@ -86,7 +86,7 @@ public:
 };
 
 class PacmanAgent{
-private:
+public:
     //LearnedMatrix learnedMatrix;
     double level3_a = 0;
 public:
@@ -99,12 +99,14 @@ public:
     void move(int i, vector<int> inputMatrix[]);
 
     double calculateProbOfMov(double a, int t);
-    double playThisGame(int nrow, int ncolumn, vector<int> inputMatrix[], double a);
+    bool random(double a);
+    pair<double, pair<int, int>> playThisGame(int nrow, int ncolumn, vector<int> inputMatrix[], double a);
 
     double train(int nrow, int ncolumn, vector<int> inputMatrix[]);
     vector<int> level3(int nrow, int ncolumn, vector<int> inputMatrix[]);
 
     int level4(int nrow, int ncolumn, vector<int> inputMatrix[]);///play in turns
+    void endGame();
 };
 
 #endif // _PACMANAGENT_H

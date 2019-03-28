@@ -13,11 +13,13 @@ public:
     static int point;
     static pair<int, int> pacmanPosition;
     static map<pair<int, int>, bool> foodPositions;
-    static map<pair<int, int>, bool> monsterPositions;
+    static map<pair<int, int>, int> monsterPositions;
 
 public:
     static void init(int nrow, int ncolumn, vector<int> inputMatrix[]);
-    static void chooseRandomMap();
+    static int chooseRandomMap(int &nrow, int &ncolumn, vector<int> inputMatrix[], string sss);
+    static void loadMap(int chosenFile, int &nrow, int &ncolumn, vector<int> inputMatrix[], string sss);
+    static bool isFinished();
 };
 
 #endif // _AGENT_H

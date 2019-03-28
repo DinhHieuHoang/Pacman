@@ -266,11 +266,68 @@ void PacmanAgent::move(int i, vector<int> inputMatrix[]){
 }
 
 double PacmanAgent::calculateProbOfMov(double a, int t){
+    double dependencyOnGamePoint = Map::point<0?(Map::point*0.3):0;
     return 1.0/(1.0+a*t);
 }
 
-double PacmanAgent::playThisGame(int nrow, int ncolumn, vector<int> inputMatrix[], double a){
-    return 0.0;
+bool PacmanAgent::random(double a){
+    double sr = rand()*1.0/RAND_MAX;
+    if(sr<=a){
+        return true;
+    }
+    return false;
+}
+
+pair<double, pair<int,int>> PacmanAgent::playThisGame(int nrow, int ncolumn, vector<int> inputMatrix[], double a){
+    int ans=0;
+    int mrk = 0;
+    int t=0;
+    int chosenMove;
+    while(Map::point >= MIN_POINT){
+        if(ans<Map::point){
+            ans = Map::point;
+            mrk = t;
+        }
+        ++t;
+        chosenMove = -1;
+        //if(!random(calculateProbOfMov(a, t))){
+        //    return make_pair(Map::point, make_pair(ans, mrk));
+        //}
+        vector<int> foodMove;
+        vector<int> notFoodMove;
+        for(size_t i = 0; i<4; i++){
+            int x_next = Map::pacmanPosition.first + MOVES[i].first;
+            int y_next = Map::pacmanPosition.second + MOVES[i].second;
+
+            if(x_next < 0 || y_next < 0 || x_next >= nrow || y_next >= ncolumn){
+                continue;
+            }
+            //cout<<x_next<<" "<<y_next<<" "<<i<<endl;
+            if(inputMatrix[x_next][y_next] == FOOD_INT){
+                foodMove.push_back(i);
+            }
+            else if(inputMatrix[x_next][y_next] == PATH_INT){
+                notFoodMove.push_back(i);
+            }
+        }
+        if(!foodMove.empty()){
+            chosenMove = rand() % foodMove.size();
+            chosenMove = foodMove[chosenMove];
+        }
+        else if(!notFoodMove.empty()){
+            if(!random(calculateProbOfMov(a, t))){
+                return make_pair(Map::point, make_pair(ans, mrk));
+            }
+            chosenMove = rand() % notFoodMove.size();
+            chosenMove = notFoodMove[chosenMove];
+        }
+        else{
+            return make_pair(Map::point, make_pair(ans, mrk));
+        }
+        move(chosenMove, inputMatrix);
+    }
+
+    return make_pair(Map::point, make_pair(ans, mrk));
 }
 
 double PacmanAgent::train(int nrow, int ncolumn, vector<int> inputMatrix[]){
@@ -281,6 +338,8 @@ double PacmanAgent::train(int nrow, int ncolumn, vector<int> inputMatrix[]){
     double oneThirdGamePoint;
     double twoThirdGamePoint;
 
+    pair<double, pair<int, int>> point;
+
     for(int cntLoop = 0; cntLoop<TERN_SEARCH_LOOP_NUM; ++cntLoop){
         oneThird = (2*currentLowerBound + currentUpperBound)/3.0;
         twoThird = (2*currentUpperBound + currentLowerBound)/3.0;
@@ -289,12 +348,13 @@ double PacmanAgent::train(int nrow, int ncolumn, vector<int> inputMatrix[]){
         twoThirdGamePoint = 0.0;
 
         for(int cntGame = 0; cntGame<TERN_SEARCH_A_NUM; ++cntGame){
-            Map::chooseRandomMap();
-            oneThirdGamePoint += playThisGame(nrow, ncolumn, inputMatrix, oneThird);
-            twoThirdGamePoint += playThisGame(nrow, ncolumn, inputMatrix, twoThird);
+            int chosenFile = Map::chooseRandomMap(nrow, ncolumn, inputMatrix, trainingfile);
+            point = playThisGame(nrow, ncolumn, inputMatrix, oneThird);
+            oneThirdGamePoint += point.first;
+            Map::loadMap(chosenFile, nrow, ncolumn, inputMatrix, trainingfile);
+            point = playThisGame(nrow, ncolumn, inputMatrix, twoThird);
+            twoThirdGamePoint += point.first;
         }
-        oneThirdGamePoint/=TERN_SEARCH_A_NUM;
-        twoThirdGamePoint/=TERN_SEARCH_A_NUM;
 
         if(oneThirdGamePoint > twoThirdGamePoint){
             currentUpperBound = twoThird;
@@ -304,11 +364,24 @@ double PacmanAgent::train(int nrow, int ncolumn, vector<int> inputMatrix[]){
         }
     }
 
-    return level3_a = (oneThird+twoThird)/2.0;
+    level3_a = (oneThird+twoThird)/2.0;
+
+    freopen("output.txt","w",stdout);
+    for(int cntGame = 0; cntGame<TERN_SEARCH_A_NUM; ++cntGame){
+        int chosenFile = Map::chooseRandomMap(nrow, ncolumn, inputMatrix, validatingfile);
+        point = playThisGame(nrow, ncolumn, inputMatrix, level3_a);
+        cout<<point.first<<" "<<point.second.first<<" "<<point.second.second<<endl;
+    }
+    fclose(stdout);
+    return level3_a;
 }
 
 vector<int> PacmanAgent::level3(int nrow, int ncolumn, vector<int> inputMatrix[]){
     return vector<int>();
+}
+
+void PacmanAgent::endGame(){
+    Map::pacmanPosition = make_pair(-1,-1);
 }
 
 int PacmanAgent::level4(int nrow, int ncolumn, vector<int> inputMatrix[]){

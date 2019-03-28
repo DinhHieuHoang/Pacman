@@ -12,7 +12,7 @@ vector<int> inputMatrix[1000];
 int Map::point = 0;
 pair<int, int> Map::pacmanPosition;
 map<pair<int, int>, bool> Map::foodPositions;
-map<pair<int, int>, bool> Map::monsterPositions;
+map<pair<int, int>, int> Map::monsterPositions;
 
 bool input(){
     char inputfilename[inputfile.length()+1];
@@ -89,6 +89,7 @@ bool run(){
         outputMoves(moves);
         break;
     case 2:
+        moves = pacman.level1_BFS(n,m,inputMatrix);
         break;
     case 3:
         break;
@@ -103,12 +104,18 @@ bool run(){
 
 int main()
 {
-    input();
-    output();
-    Map::init(n, m, inputMatrix);
-    MonsterAgent myMonster(Map::monsterPositions.begin()->first);
-    int mov = myMonster.level4_1(n,m,inputMatrix);
-    myMonster.move(mov, inputMatrix);
-    output();
+    srand(time(NULL));
+//    input();
+//    output();
+//    Map::init(n, m, inputMatrix);
+//    MonsterAgent myMonster(Map::monsterPositions.begin()->first);
+//    int mov = myMonster.level4_1(n,m,inputMatrix);
+//    myMonster.move(mov, inputMatrix);
+//    output();
+    PacmanAgent myPacman;
+    myPacman.train(30,40,inputMatrix);
+    freopen("trainedParameters.txt","a",stdout);
+    cout<<myPacman.level3_a<<endl;
+    fclose(stdout);
     return 0;
 }

@@ -10,13 +10,20 @@ void MonsterAgent::move(int i, vector<int> inputMatrix[]){
     if(Map::foodPositions.find(currentPosition)!=Map::foodPositions.end()){
         inputMatrix[currentPosition.first][currentPosition.second] = FOOD_INT;
     }
-    Map::monsterPositions.erase(currentPosition);
+    if(Map::monsterPositions[currentPosition]==1)
+        Map::monsterPositions.erase(currentPosition);
+    else
+        Map::monsterPositions[currentPosition]--;
     currentPosition.first += MOVES[i].first;
     currentPosition.second +=MOVES[i].second;
     inputMatrix[currentPosition.first][currentPosition.second] = MONSTER_INT;
-    Map::monsterPositions[currentPosition]=true;
+    if(Map::monsterPositions.find(currentPosition)==Map::monsterPositions.end())
+        Map::monsterPositions[currentPosition]=1;
+    else
+        Map::monsterPositions[currentPosition]++;
     if(currentPosition == Map::pacmanPosition){
         cout<<"Monster ate Pacman"<<endl;
+        Map::pacmanPosition=make_pair(-1, -1);
     }
 }
 
